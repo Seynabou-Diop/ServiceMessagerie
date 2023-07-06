@@ -1,0 +1,96 @@
+<!ELEMENT serviceMessagerie (utilisateurs)>
+
+<!ELEMENT utilisateurs (utilisateur+)>
+
+<!ELEMENT utilisateur (contacts, Groupes, discussions, appels)>
+<!ATTLIST utilisateur
+    id ID #REQUIRED
+    nom CDATA #REQUIRED
+    numero CDATA #REQUIRED
+    statut (Offline | Online) #REQUIRED
+    photo CDATA #REQUIRED>
+
+
+<!ELEMENT contacts (contact*)>
+
+<!ELEMENT contact (commonGroups*)>
+<!ATTLIST contact id IDREF #REQUIRED
+>
+
+<!ELEMENT photo (#PCDATA)>
+
+<!ELEMENT commonGroups (commonGroup+)>
+<!ELEMENT commonGroup EMPTY>
+<!ATTLIST commonGroup id IDREF #REQUIRED>
+
+<!ELEMENT Groupes (Groupe*)>
+<!ELEMENT Groupe (membres)>
+<!ATTLIST Groupe
+    id ID #REQUIRED
+    nom CDATA #REQUIRED
+    description CDATA #REQUIRED
+    nombreMembres CDATA #REQUIRED
+>
+
+
+<!ELEMENT membres (membre+)>
+
+<!ELEMENT membre EMPTY>
+<!ATTLIST membre id IDREF #REQUIRED>
+
+<!ELEMENT discussions (discussion*)>
+
+<!ELEMENT discussion (discuGroupe?,correspondant?,infoGroupe?, messages)>
+<!ATTLIST discussion
+    categorie (individuelle | groupe) #REQUIRED
+    id ID #REQUIRED
+>
+
+<!ELEMENT discuGroupe EMPTY>
+<!ATTLIST discuGroupe id IDREF #REQUIRED
+>
+
+<!ELEMENT correspondant EMPTY>
+<!ATTLIST correspondant id IDREF #REQUIRED
+>
+
+
+<!ELEMENT messages (message*)>
+
+<!ELEMENT message (contenu, citation?)>
+<!ATTLIST message
+    id ID #REQUIRED
+    expediteur IDREF #REQUIRED
+    type CDATA #REQUIRED
+    timestamp CDATA #REQUIRED
+>
+
+<!ELEMENT contenu (texte?, fichier?, vocal?)>
+
+<!ELEMENT texte (#PCDATA)>
+<!ELEMENT fichier (#PCDATA)>
+<!ELEMENT vocal EMPTY>
+<!ATTLIST vocal
+    minutes CDATA #REQUIRED
+    secondes CDATA #REQUIRED
+>
+
+<!ELEMENT citation EMPTY>
+<!ATTLIST citation message IDREF #REQUIRED
+>
+
+<!ELEMENT appels (appel*)>
+
+<!ELEMENT appel (correspondant?,membres?, duree)>
+<!ATTLIST appel
+    id ID #REQUIRED
+    type CDATA #REQUIRED
+    categorie CDATA #REQUIRED
+    chiffre (true | false) #REQUIRED
+>
+
+
+<!ELEMENT duree EMPTY>
+<!ATTLIST duree
+    heures CDATA #REQUIRED
+    minutes CDATA #REQUIRED>
